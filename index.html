@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vedika Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Hi, I’m Sahil Pavithran 👋</h1>
+        <p>Web Developer | Data Science Enthusiast</p>
+        <div class="hero-buttons">
+            <button class="btn-dark">Contact Me</button>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="profile.png" alt="Sahil">
+    </div>
+</section>
+
+
+<!-- ABOUT SECTION -->
+<section class="about">
+    <h2>About Me</h2>
+    <div class="about-card">
+        <div class="about-img">
+            <img src="profile.png" alt="Sahil">
+        </div>
+        <div class="about-text">
+            <p>
+                I’m a web developer and data science enthusiast with a passion
+                for building efficient and innovative solutions. I love coding,
+                analysing data, and exploring new technologies.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SKILLS -->
+<section class="skills">
+    <h2>My Skills</h2>
+    <div class="skill-container">
+        <div class="skill-card">
+            <h3>Web Development</h3>
+            <p>HTML • CSS • MySQL</p>
+        </div>
+        <div class="skill-card">
+            <h3>Coding</h3>
+            <p>C++ • Python</p>
+        </div>
+        <div class="skill-card">
+            <h3>Graphic Designing</h3>
+            <p>Photoshop • Illustrator</p>
+        </div>
+        <div class="skill-card">
+            <h3>Data Science</h3>
+            <p>Python • Pandas • ML</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonial-container">
+
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <img src="image.webp" alt="Ankit Sharma">
+                <div>
+                    <h4>Ankita Sharma</h4>
+                    <span>Data Science Tutor</span>
+                </div>
+            </div>
+            <p>
+                Sahil is a highly skilled developer. He delivered high-quality
+                code and insightful data analysis for our project.
+            </p>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <img src="images.jpg" alt="">
+                <div>
+                    <h4>Sankar Gupta</h4>
+                    <span>Project Associate</span>
+                </div>
+            </div>
+            <p>
+                Working with Sahil was fantastic! He is professional,
+                knowledgeable, and meets deadlines efficiently.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact">
+    <h2>Contact Me</h2>
+    <form class="contact-form" id="contactForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <textarea id="message" placeholder="Message" required></textarea>
+        <button class="btn-dark" type="submit">Send Message</button>
+        <div id="contact-status" style="margin-top:12px;"></div>
+    </form>
+
+<script>
+const form = document.getElementById('contactForm');
+const status = document.getElementById('contact-status');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const payload = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+    };
+
+    status.innerText = "Sending...";
+
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            status.style.color = "green";
+            status.innerText = "Message saved successfully!";
+            form.reset();
+        } else {
+            status.style.color = "red";
+            status.innerText = data.error || "Something went wrong";
+        }
+
+    } catch (error) {
+        status.style.color = "red";
+        status.innerText = "Server error";
+    }
+});
+</script>
+</section>
+</body>
+</html>

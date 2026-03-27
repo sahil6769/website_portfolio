@@ -114,7 +114,7 @@
         <button class="btn-dark" type="submit">Send Message</button>
         <div id="contact-status" style="margin-top:12px;"></div>
     </form>
-
+<p id="thankyouMessage" style="color:green; font-weight:bold;"></p>
 <script>
 const form = document.getElementById('contactForm');
 const status = document.getElementById('contact-status');
@@ -142,6 +142,8 @@ form.addEventListener('submit', async (e) => {
         if (response.ok && data.success) {
             status.style.color = "green";
             status.innerText = "Message saved successfully!";
+            document.getElementById("thankyouMessage").innerText =
+"Thank you " + name + "! Your message has been sent.";
             form.reset();
         } else {
             status.style.color = "red";

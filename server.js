@@ -1,3 +1,4 @@
+const nodemailer = require("nodemailer");
 const express = require('express');
 const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
@@ -61,7 +62,20 @@ async function initDb() {
           'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
           [name.trim(), email.trim(), message.trim()]
         );
+const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "25dtsa47@kristujayanti.com",
+        pass: "qaumzpnbarscissd"
+      }
+    });
 
+    await transporter.sendMail({
+      from: "25dtsa47@kristujayanti.com",
+      to: "25dtsa47@kristujayanti.com",
+      subject: "New Contact Message",
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
+    });
         return res.json({ success: true, id: result.insertId });
 
       } catch (err) {
